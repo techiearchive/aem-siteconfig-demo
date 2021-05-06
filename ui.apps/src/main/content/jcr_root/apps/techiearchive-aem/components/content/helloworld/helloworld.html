@@ -18,4 +18,12 @@
 <pre data-sly-use.hello="techiearchive.aem.core.models.HelloWorldModel">
 HelloWorldModel says:
 ${hello.message}
+
 </pre>
+<pre data-sly-test.config="${hello.siteSpecificBasicConfigModel}">
+Site Specific Configurations:
+Logo Path = <sly data-sly-test="${config.logoIcon}">${config.logoIcon}</sly>
+Logo Alt text = <sly data-sly-test="${config.logoIconAltText}">${config.logoIconAltText}</sly>
+Logo Link Path = <sly data-sly-test="${config.logoLinkURL}">${config.logoLinkURL}</sly>
+</pre>
+

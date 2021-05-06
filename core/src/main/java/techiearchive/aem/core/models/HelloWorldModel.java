@@ -21,11 +21,18 @@ import javax.inject.Named;
 
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.Default;
+import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Model;
+import org.apache.sling.models.annotations.injectorspecific.Self;
 import org.apache.sling.settings.SlingSettingsService;
 
-@Model(adaptables=Resource.class)
+import techiearchive.aem.core.utils.SiteConfigUtil;
+
+@Model(adaptables = Resource.class, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 public class HelloWorldModel {
+	
+	@Self
+	private Resource resource;
 
     @Inject
     private SlingSettingsService settings;
@@ -45,4 +52,8 @@ public class HelloWorldModel {
     public String getMessage() {
         return message;
     }
+    
+    public SiteConfigModel getSiteSpecificBasicConfigModel() {
+		return SiteConfigUtil.getSiteSpecificConfigModel(resource, "site_config");
+	}
 }
