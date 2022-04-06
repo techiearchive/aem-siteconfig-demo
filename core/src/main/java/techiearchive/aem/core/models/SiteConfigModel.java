@@ -12,6 +12,9 @@ import org.apache.sling.models.annotations.injectorspecific.ValueMapValue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import lombok.Getter;
+import techiearchive.aem.core.utils.TagUtil;
+
 /**
  * This Model class is used to get site specific configuration
  * 
@@ -31,13 +34,25 @@ public class SiteConfigModel {
 
 	@ValueMapValue
 	String logoLinkURL;
+	
+	@ValueMapValue
+	String region;
 
 	@Self
 	private Resource resource;
+	
+	@Getter
+	String regionCode;
+	
+	@Getter
+	String regionName;
 
 	@PostConstruct
 	protected void init() {
 		LOG.debug("site config initialized");
+		
+		regionName = TagUtil.getTagTitle(resource, region);
+		regionCode = TagUtil.getTagIdValue(region);
 	}
 
 	public String getLogoIcon() {
